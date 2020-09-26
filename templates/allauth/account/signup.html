@@ -1,0 +1,91 @@
+{% extends "account/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign up" %}{% endblock %}
+
+{% block content %}
+
+<style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+</style>
+    <div class="text-center">
+    <form class="form-signin" method="post" action="{% url 'account_signup' %}" enctype="multipart/form-data">
+      <img class="mb-4" src="{% static 'images/dilip.jpg' %}" alt="" width="72" height="72">
+
+      <h1 class="h3 mb-3 font-weight-normal">Please Sign Up</h1>
+      {% csrf_token %}
+<!--      {{ form.as_p }}-->
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{request.GET.next}}">
+        {% endif %}
+
+        {% if form.non_field_errors %}
+            <div class="fieldWrapper alert alert-danger">
+                <ul>
+                    {% for error in form.non_field_errors %}
+                    <li>{{ error | lower}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+      <label for="firstname" class="sr-only">First Name</label>
+  <input type="text" id="firstname" name="first_name" class="form-control" placeholder="First Name" required autofocus>
+
+      <label for="lastname" class="sr-only">Last Name</label>
+  <input type="text" id="lasrname" name="last_name" class="form-control" placeholder="Last Name" required autofocus>
+
+        <label for="inputEmail" class="sr-only">Email Address</label>
+  <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
+
+        <label for="phone" class="sr-only">Phone Number</label>
+  <input type="tel" id="phone" name="phone" class="form-control" placeholder="Phone Number" required autofocus>
+
+  <select class="form-control mx-0" name="gender" id="exampleFormControlSelect1" required="">
+        <option value="" selected="" style="">Please Select Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+  </select>
+
+      <div class="input-group">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" name="profile" id="inputGroupFile02">
+          <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02"><p class="text-left">Profile Pic</p></label>
+        </div>
+      </div>
+
+      <label for="mothertongue" class="sr-only">Mother Tongue</label>
+  <input type="text" id="mothertongue" name="mother_tongue" class="form-control" placeholder="Mother Tongue" required autofocus>
+
+      <label for="inputPassword" class="sr-only">Password</label>
+  <input type="password" id="inputPassword" name="password1" class="form-control" placeholder="Password" required>
+
+      <label for="inputPassword1" class="sr-only">Password</label>
+  <input type="password" id="inputPassword1" name="password2" class="form-control" placeholder="Re-Enter Password" required>
+
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+  </div>
+
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+
+  <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+</form>
+    </div>
+{% endblock %}
